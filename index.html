@@ -1,18 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hallie&amp;Co.</title>
-    
-    <!-- Google Fonts: Roboto -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-    <link rel="stylesheet" href="style.css">
+  <!-- Updated Title & Metadata -->
+  <title>Hallie | Digital Design</title>
+  <meta name="description" content="Personal portfolio and interactive Bento grid showcasing web design and Webflow builds." />
+  
+  <!-- Favicon (SVG / PNG) -->
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <!-- Fallback PNG for legacy browsers -->
+  <link rel="alternate icon" href="favicon.ico" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  
+  <!-- CSS Stylesheet -->
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <div class="seq-dots" aria-hidden="true" style="--dots: 0.580;"></div>
+  <header class="hero-container">
+    <h1 class="hero-title load-1">
+      <span class="hero-title-glyph" style="--i:0">H</span><span class="hero-name-glyph" style="--i:0">a</span><span class="hero-name-glyph" style="--i:0">l</span><span class="hero-name-glyph" style="--i:0">l</span><span class="hero-name-glyph" style="--i:0">i</span><span class="hero-name-glyph" style="--i:0">e</span>
+    </h1>
+    
+    <div class="hero-subtitle load-2">
+      <span>Could be your next</span>
+      <!-- Odometer Window Mask -->
+      <div class="odometer-window">
+        <div class="odometer-track" id="odometerTrack">
+          <span class="role-item">digital designer.</span>
+          <span class="role-item">photographer.</span>
+          <span class="role-item">brand designer.</span>
+          <span class="role-item">web designer.</span>
+        </div>
+      </div>
+    </div>
 
+    <!-- Category Pill Buttons -->
+    <div class="pill-group load-2">
+      <button class="pill-btn has-liquid-glass" data-index="1">Editorial Photography</button>
+      <button class="pill-btn has-liquid-glass" data-index="2">Brand Design</button>
+      <button class="pill-btn has-liquid-glass" data-index="3">Front-End Designer</button>
+    </div>
+  </header>
+  <main class="bento-section load-3">
+    <div class="bento-grid">
+      
+    <!-- Card 1: Large Featured Image (Spans 2 columns) -->
+    <div class="bento-card card-large" data-category="about">
+      <img src="https://picsum.photos/seed/portrait/800/500" alt="Featured portrait">
+    </div>
+
+        <!-- Card 2: Bio / Profile Card (Spans 2 columns) -->
+    <div class="bento-card card-bio" data-category="about">
+      <div class="bio-header">
+        <div class="bio-header-name"> 
+            <h2>Hallie</h2>
+            <span class="verified-badge"> 
+            <svg data-encore-id="verifiedBadge" role="img" aria-hidden="false" class="e-10750-icon e-10750-verified-badge" viewBox="0 0 16 16">
+              <title>Verified account</title>
+              <path d="M7.155.406a1.18 1.18 0 0 1 1.69 0L10.46 2.06l2.312-.027a1.18 1.18 0 0 1 1.195 1.194L13.94 5.54l1.654 1.615a1.18 1.18 0 0 1 0 1.69L13.94 10.46l.027 2.312a1.18 1.18 0 0 1-1.195 1.195l-2.312-.027-1.615 1.654a1.18 1.18 0 0 1-1.69 0L5.54 13.94l-2.312.027a1.18 1.18 0 0 1-1.195-1.195l.027-2.312L.406 8.845a1.18 1.18 0 0 1 0-1.69L2.06 5.54l-.027-2.313a1.18 1.18 0 0 1 1.195-1.194l2.312.027zm4.503 6.067a.75.75 0 0 0-1.06-1.06L6.647 9.36 5.446 8.157a.75.75 0 1 0-1.06 1.06l2.264 2.265z">
+              </path>
+            </svg>
+          </span>
+          </div>
+        <div class="bio-header-follow">
+  <div id="listenerCount" class="listener-count">
+    <!-- Single text node for number + label -->
+  <div class="listener-text-single" id="listenerCount">
+    26,051,998 monthly listeners
+  </div>
+  
+  <div class="button-wrapper">
+  <button class="follow-btn" id="followBtn">Follow</button>
+</div>
+    
+  </div>
+</div>
+        <span class="bio-header-text">Redesign and webflow build for renown artist, Victor Bokas. Victor's work is featured in several galleries and permanent.</span>
+        <p class="bio-text">
+        
+      </p>
+      </div>
+      
+    </div>
+    
+    <!-- Card 2: Social Icons Card -->
+    <div class="bento-card card-socials"data-category="contact">
+      <div class="social-grid">
+        <a href="#">✉️</a>
+        <a href="#">📷</a>
+        <a href="#">💼</a>
+        <a href="#">🅱️</a>
+      </div>
+    </div>
+
+    <!-- Card 3: TV Show / Media Card -->
+    <div class="bento-card card-media" data-category="about">
+      <img src="https://picsum.photos/seed/bear/400/400" alt="The Bear">
+      <div class="card-overlay">
+        <span>Current Favourite TV Show</span>
+        <h3>The Bear</h3>
+      </div>
+    </div>
+
+    
+    <!-- Card Showcase#1 / Work Carousel Card -->
+  <div class="bento-card card-showcase" data-category="editorial">
+  <!-- Slides Container -->
+  <div class="carousel-track" id="carouselTrack">
+    <!-- Slide 1 -->
+    <div class="carousel-slide">
+      <img src="https://picsum.photos/seed/project1/800/800" alt="Project 1">
+      <div class="slide-overlay">
+        <span>Brand Identity</span>
+        <h3>Project One</h3>
+      </div>
+    </div>
+
+    <!-- Slide 2 -->
+    <div class="carousel-slide">
+      <img src="https://picsum.photos/seed/project2/800/800" alt="Project 2">
+    </div>
+
+    <!-- Slide 3 -->
+    <div class="carousel-slide">
+      <img src="https://picsum.photos/seed/project3/800/800" alt="Project 3">
+    </div>
+  </div>
+
+  <!-- Navigation Controls -->
+  <button class="carousel-btn prev-btn" id="prevBtn" aria-label="Previous slide">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" fill="currentColor"></path>
+</svg>
+  </button>
+  <button class="carousel-btn next-btn" id="nextBtn" aria-label="Next slide">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8-8-8z" fill="currentColor"></path>
+</svg>
+  </button>
+
+  <!-- Slide Indicators (Dots) -->
+  <div class="carousel-dots" id="carouselDots">
+    <span class="dot active"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+  </div>
+</div>
+
+        <!-- Card Showcase#2 / Work Carousel Card -->
+  <div class="bento-card card-showcase" data-category="brand-design">
+  <!-- Slides Container -->
+  <div class="carousel-track" id="carouselTrack">
+    <!-- Slide 1 -->
+    <div class="carousel-slide">
+      <img src="https://picsum.photos/seed/project1/800/800" alt="Project 1">
+      <div class="slide-overlay">
+        <span>Brand Identity</span>
+        <h3>Project One</h3>
+      </div>
+    </div>
+
+    <!-- Slide 2 -->
+    <div class="carousel-slide">
+      <img src="https://picsum.photos/seed/project2/800/800" alt="Project 2">
+    </div>
+
+    <!-- Slide 3 -->
+    <div class="carousel-slide">
+      <img src="https://picsum.photos/seed/project3/800/800" alt="Project 3">
+    </div>
+  </div>
+
+  <!-- Navigation Controls -->
+  <button class="carousel-btn prev-btn" id="prevBtn" aria-label="Previous slide">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" fill="currentColor"></path>
+</svg>
+  </button>
+  <button class="carousel-btn next-btn" id="nextBtn" aria-label="Next slide">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8-8-8z" fill="currentColor"></path>
+</svg>
+  </button>
+
+  <!-- Slide Indicators (Dots) -->
+  <div class="carousel-dots" id="carouselDots">
+    <span class="dot active"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+  </div>
+</div>
+
+     <!-- Card Showcase#3 / Work Carousel Card -->
+  <div class="bento-card card-showcase" data-category="editorial">
+  <!-- Slides Container -->
+  <div class="carousel-track" id="carouselTrack">
+    <!-- Slide 1 -->
+    <div class="carousel-slide">
+      <img src="https://picsum.photos/seed/project1/800/800" alt="Project 1">
+      <div class="slide-overlay">
+        <span>Brand Identity</span>
+        <h3>Project One</h3>
+      </div>
+    </div>
+
+    <!-- Slide 2 -->
+    <div class="carousel-slide">
+      <img src="https://picsum.photos/seed/project2/800/800" alt="Project 2">
+    </div>
+
+    <!-- Slide 3 -->
+    <div class="carousel-slide">
+      <img src="https://picsum.photos/seed/project3/800/800" alt="Project 3">
+    </div>
+  </div>
+
+  <!-- Navigation Controls -->
+  <button class="carousel-btn prev-btn" id="prevBtn" aria-label="Previous slide">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" fill="currentColor"></path>
+</svg>
+  </button>
+  <button class="carousel-btn next-btn" id="nextBtn" aria-label="Next slide">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8-8-8z" fill="currentColor"></path>
+</svg>
+  </button>
+
+  <!-- Slide Indicators (Dots) -->
+  <div class="carousel-dots" id="carouselDots">
+    <span class="dot active"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+  </div>
+</div>
+
+        <!-- Card 7: Dream Projects (Spans 2 columns) -->
+    <div class="bento-card card-dream" data-category="about">
+      <div class="carousel-track" id="dreamCarouselTrack">
+            <!-- Slide 1 -->
+        <div class="carousel-slide dream-slide">
+          <div class="dream-header">
+            <div>
+              <p class="dream-title">Wishlist Projects</p>
+              <h2>The Maiden</h2>
+            </div>
+          </div>
+          <p class="dream-text">
+            Direct a story written by me about a lonely girl whose touch brings death, journeys to the edge of the afterlife seeking to lift her curse.
+          </p>
+        </div>
+
+<!-- Slide 2 -->
+    <div class="carousel-slide dream-slide">
+      <div class="dream-header">
+        <div>
+          <p class="dream-title">Wishlist Projects</p>
+          <h2>Echoes of Saturn</h2>
+        </div>
+      </div>
+      <p class="dream-text">
+        Design a slow-burn ambient sci-fi audio visualizer where space station telemetry generates procedural atmospheric
+      </p>
+    </div>
+
+        <!-- Slide 3 -->
+    <div class="carousel-slide dream-slide">
+      <div class="dream-header">
+        <div>
+          <p class="dream-title">Wishlist Projects</p>
+          <h2>Aether Archive</h2>
+        </div>
+      </div>
+      <p class="dream-text">
+        Build a community-curated digital museum documenting forgotten early-2000s WebGL art, flash animations, and interactive experimental sites.
+      </p>
+    </div>
+        
+        <!-- Clickable Slide Indicators -->
+      <div class="carousel-dots" id="dreamDots">
+        <button class="dot active" aria-label="Go to slide 1"></button>
+        <button class="dot" aria-label="Go to slide 2"></button>
+        <button class="dot" aria-label="Go to slide 3"></button>
+      </div>
+        
+      </div>
+  </div>
+            <!-- Card Showcase#4 / Work Carousel Card -->
+  <div class="bento-card card-showcase" data-category="brand-design">
+  <!-- Slides Container -->
+  <div class="carousel-track" id="carouselTrack">
+    <!-- Slide 1 -->
+    <div class="carousel-slide">
+      <img src="https://picsum.photos/seed/project1/800/800" alt="Project 1">
+      <div class="slide-overlay">
+        <span>Brand Identity</span>
+        <h3>Project One</h3>
+      </div>
+    </div>
+
+    <!-- Slide 2 -->
+    <div class="carousel-slide">
+      <img src="https://picsum.photos/seed/project2/800/800" alt="Project 2">
+    </div>
+
+    <!-- Slide 3 -->
+    <div class="carousel-slide">
+      <img src="https://picsum.photos/seed/project3/800/800" alt="Project 3">
+    </div>
+  </div>
+
+  <!-- Navigation Controls -->
+  <button class="carousel-btn prev-btn" id="prevBtn" aria-label="Previous slide">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" fill="currentColor"></path>
+</svg>
+  </button>
+  <button class="carousel-btn next-btn" id="nextBtn" aria-label="Next slide">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8-8-8z" fill="currentColor"></path>
+</svg>
+  </button>
+
+  <!-- Slide Indicators (Dots) -->
+  <div class="carousel-dots" id="carouselDots">
+    <span class="dot active"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+  </div>
+</div>
+    
+    <!-- Card 4: Recent Track Card -->
+    <div class="bento-card card-track" data-category="about">
+      <img src="https://picsum.photos/seed/band/400/400" alt="Goals track">
+      <div class="card-overlay">
+        <span>Recent Most Played Track</span>
+        <h3>Goals</h3>
+      </div>
+    </div>
+
+    <!-- Card 6: City / Editorial Image Card -->
+    <div class="bento-card card-city" data-category="about">
+      <img src="https://picsum.photos/seed/london/400/400" alt="City view">
+    </div>
+
+
+
+
+    
+<!-- Card 8: Dream Projects (Spans 2 columns) -->
+    <div class="bento-card card-dream" data-category="about">
+      <div class="carousel-track" id="dreamCarouselTrack">
+            <!-- Slide 1 -->
+        <div class="carousel-slide dream-slide">
+          <div class="dream-header">
+            <div>
+              <p class="dream-title">Favourite Quotes</p>
+              <h2>Price is what you pay.<br>Value is what you get.</h2>
+            </div>
+          </div>
+          <p class="dream-text" style="text-align:right;">
+            Warren Buffett
+          </p>
+        </div>
+
+<!-- Slide 2 -->
+    <div class="carousel-slide dream-slide">
+          <div class="dream-header">
+            <div>
+              <p class="dream-title">Favourite Quotes</p>
+              <h2>Price is what you pay.<br>Value is what you get.</h2>
+            </div>
+          </div>
+          <p class="dream-text" style="text-align:right;">
+            Warren Buffett
+          </p>
+        </div>
+
+        <!-- Slide 3 -->
+    <div class="carousel-slide dream-slide">
+          <div class="dream-header">
+            <div>
+              <p class="dream-title">Favourite Quotes</p>
+              <h2>Price is what you pay.<br>Value is what you get.</h2>
+            </div>
+          </div>
+          <p class="dream-text" style="text-align:right;">
+            Warren Buffett
+          </p>
+        </div>
+        
+        <!-- Clickable Slide Indicators -->
+      <div class="carousel-dots" id="dreamDots">
+        <button class="dot active" aria-label="Go to slide 1"></button>
+        <button class="dot" aria-label="Go to slide 2"></button>
+        <button class="dot" aria-label="Go to slide 3"></button>
+      </div>
+        
+      </div>
+  </div>
+
+    
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; 2026 Hallie&amp;Co.</p>
+  </footer>
+  <script src="script.js"></script>
 </body>
-<footer>
-    <p>© 2026 Hallie&amp;Co. Built with stones and sticks.</p>
-</footer>
+</html>
+

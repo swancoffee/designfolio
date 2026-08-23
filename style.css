@@ -1,5 +1,968 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
 body {
-    font-family: "Roboto", sans-serif;
-    font-weight: 400; /* Change to whatever weight you want */
-    font-style: normal;
+  --c-glass: #bbbbbc;
+  --c-light: #fff;
+  --c-dark: #000;
+  --c-content: #224;
+  --c-action: #0052f5;
+  --c-bg: #e8e8e9;
+  --glass-reflex-dark: 1;
+  --glass-reflex-light: 1;
+  --saturation: 150%;
+
+  --dots: 0;
+  
+  background-color: #e8e8e8;
+  display: flex;
+  flex-direction: column; /* Force elements to stack top-to-bottom */
+  align-items: center;    /* Keeps everything centered horizontally */
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  color: #111111;
+}
+
+.seq-dots {
+    z-index: -1;
+    pointer-events: none;
+    opacity: calc(var(--dots, .58) * .62);
+    background-image: radial-gradient(circle, #1c1a174d 1px, #0000 1.2px);
+    background-size: 16px 16px;
+    position: fixed;
+    inset: 0;
+}
+
+.hero-container {
+  /* Gives the hero enough space to breathe while leaving room for the peek */
+  width: 100%;
+  min-height: 80vh; 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 60px 20px 40px; 
+  box-sizing: border-box;
+}
+
+/* Big Name Header */
+.hero-title {
+  font-style: normal;
+  font-size: 5rem;
+  font-weight: 700;
+  letter-spacing: -1px;
+}
+
+.hero-title-glyph{
+  font-family: "DM Serif Text", serif;
+}
+
+/* Subtitle & Odometer Setup */
+.hero-subtitle {
+  font-size: 22px;
+  color: #777777;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 32px; /* Fixed height for line height locking */
+}
+
+.odometer-window {
+  display: inline-block;
+  height: 32px;
+  overflow: hidden;
+  position: relative;
+  vertical-align: bottom;
+  margin-left: 0.25em; /* Uses relative font size spacing so a space is always exactly 1 space character wide */
+  transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1); /* Smoothly resizes width as text scrolls */
+}
+
+.odometer-track {
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1); /* Smooth easing */
+}
+
+.role-item {
+  height: 32px;
+  line-height: 32px;
+  white-space: nowrap;
+  color: #777777;
+  display: block;
+}
+
+/* Pill Buttons */
+.pill-group {
+  display: flex;
+  gap: 12px;
+  margin-top: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+  
+}
+
+.pill-btn {
+ border: none;
+  border-radius: 999px;
+  padding: 10px 22px;
+  font-size: 15px;
+  cursor: pointer;
+  will-change: transform;
+}
+
+.pill-btn:hover {
+  background-color: color-mix(in srgb, var(--c-glass) 35%, transparent);
+  color: #000000;
+}
+
+.pill-btn.active {
+  background-color: color-mix(in srgb, var(--c-glass) 50%, transparent);
+  color: #000000;
+  box-shadow: 
+    0px 8px 20px 0px color-mix(in srgb, var(--c-dark) 15%, transparent),
+    inset 0 0 0 1.5px rgba(255, 255, 255, 0.8),
+    inset 1.8px 3px 0px -2px rgba(255, 255, 255, 1);
+}
+
+/* 
+
+2. Bento Grid Section 
+
+*/
+.bento-section {
+  width: 100%;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 20px 80px; /* Side padding aligns cards with viewport edges */
+}
+
+/* The Bento Grid Container */
+.bento-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: minmax(260px, auto); /* Sets consistent row height */
+  gap: 16px;
+  max-width: 1100px;
+  width: 100%;
+}
+
+/* Card Filtering Animation */
+.bento-card {
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.bento-card.is-fading {
+  opacity: 0;
+  transform: scale(0.95);
+  pointer-events: none;
+}
+
+.bento-card.is-hidden {
+  display: none !important;
+}
+
+
+
+
+/* Base Card Styling */
+.bento-card {
+  background-color: #ffffff;
+  border-radius: 20px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 24px;
+}
+
+.bento-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+/* 1. Make the span accept dimensions */
+.verified-badge {
+  fill: #1d9bf0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;  /* Proportional size to 32px font */
+  height: 24px;
+  flex-shrink: 0; /* Prevents icon from squishing */
+}
+
+/* 2. Force the actual SVG / IMG inside to fit the 24px box */
+.verified-badge svg,
+.verified-badge img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
+}
+
+/* Specific Card Layouts & Spans */
+.card-large {
+  grid-column: span 1;
+  grid-row: span 2;
+  min-height: 280px;
+  padding: 0;
+}
+
+.card-media {
+  grid-column: span 1;
+  min-height: 280px;
+  padding: 0;
+}
+
+.card-socials {
+  grid-column: span 1;
+  background-color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 280px;
+}
+
+.social-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  font-size: 28px;
+}
+
+.card-track {
+  grid-column: span 1;
+  min-height: 260px;
+  padding: 0;
+}
+
+.card-bio {
+  grid-column: span 2;
+  background-color: #181818;
+  color: #ffffff;
+  min-height: 260px;
+  justify-content: space-between;
+}
+
+.card-city {
+  grid-column: span 1;
+  min-height: 260px;
+  padding: 0;
+}
+
+.card-dream {
+  grid-column: span 2;
+  background-color: #ffffff;
+  color: #181818;
+  min-height: 260px;
+  justify-content: space-between;
+}
+
+/* Overlays and Text Styling inside image cards */
+.card-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 20px;
+  background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+  color: #ffffff;
+  z-index: 1;
+}
+
+.card-overlay span {
+  font-size: 11px;
+  opacity: 0.8;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.card-overlay h3 {
+  font-size: 20px;
+  font-weight: 600;
+  margin-top: 4px;
+} 
+
+/* Bio Card Content Specifics */
+.bio-header {
+  flex-direction: column;
+  justify-content: flex-end;
+  display: flex;
+  z-index: 1;
+}
+
+.bio-header-name{
+  align-items: center;
+  gap: 8px;
+  display: inline-flex;
+}
+
+.bio-header-follow {
+    flex-flow: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    padding-top: 8px;
+    padding-bottom: 12px;
+    display: flex;
+}
+
+.bio-header h2 {
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.listeners {
+  font-size: 24px;
+  color: #a0a0a0;
+  margin-top: 2px;
+}
+
+.listener-count {
+  font-size: 1.5rem;
+  color: #a0a0a0;
+  margin-top: 2px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+#listenerCount,
+.listener-count {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; 
+  width: 100%;            
+  gap: 0.35rem;
+}
+
+.count-number {
+  display: inline-flex;
+  align-items: center;
+  height: 18px; /* Force container height match */
+}
+
+.count-number > span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 30px;
+  line-height: 30px;
+}
+
+.count-label {
+  line-height: 1.2em;
+  white-space: nowrap; /* Forces text onto 1 single line */
+}
+
+.count-number,
+.count-label {
+  line-height: 1;
+}
+.follow-btn {
+  transition: transform 0.08s ease-out; /* Immediate squish response */
+  will-change: transform;
+  user-select: none;
+}
+
+.follow-btn:hover {
+  transform: scale(1.03);
+}
+
+/* 1. Deep Squish on Press */
+.follow-btn:active {
+  transform: scaleX(1.2) scaleY(0.75);
+}
+
+/* 2. Jell-O Elastic Rebound (Triggered on release via JS) */
+.follow-btn.is-clicked {
+  animation: jellyOscillate 0.6s ease-out;
+}
+
+@keyframes jellyOscillate {
+  0% {
+    /* Pressed State */
+    transform: scaleX(1.2) scaleY(0.75);
   }
+  25% {
+    /* Rebound 1: Springs up tall & narrow */
+    transform: scaleX(0.85) scaleY(1.18);
+  }
+  45% {
+    /* Oscillation 1: Squishes flat again */
+    transform: scaleX(1.1) scaleY(0.92);
+  }
+  65% {
+    /* Oscillation 2: Slightly tall */
+    transform: scaleX(0.96) scaleY(1.04);
+  }
+  80% {
+    /* Oscillation 3: Barely flat */
+    transform: scaleX(1.02) scaleY(0.99);
+  }
+  100% {
+    /* Rested state */
+    transform: scaleX(1) scaleY(1);
+  }
+}
+
+/* Container wrap around the button to position sparkles absolutely */
+.button-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+/* Base style for spawned sparkle particles */
+.sparkle-particle {
+  position: absolute;
+  pointer-events: none; /* Allows clicks to pass through */
+  z-index: 10;
+  animation: sparkleBurst 0.65s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+@keyframes sparkleBurst {
+  0% {
+    transform: translate(0, 0) scale(0) rotate(0deg);
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+    transform: translate(calc(var(--tx) * 0.5), calc(var(--ty) * 0.5)) scale(1.2) rotate(45deg);
+  }
+  100% {
+    /* Flies outward along custom CSS variables (--tx, --ty) and disappears */
+    transform: translate(var(--tx), var(--ty)) scale(0) rotate(90deg);
+    opacity: 0;
+  }
+}
+
+.digit {
+  position: relative;
+  display: inline-block;
+  width: 0.65em;
+  height: 1.2em;
+  overflow: hidden;
+}
+
+.digit-track {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: transform 400ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.digit-track span {
+  display: block;
+  height: 1.2em;
+  line-height: 1.2em;
+}
+
+.follow-btn {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #ffffff;
+  font-size: 18px;
+  padding: 10px 28px;
+  border-radius: 999px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+  margin-left: auto;
+}
+
+.follow-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.bio-header-text{
+  font-size: 24px;
+  line-height: 1.5;
+  color: #b3b3b3;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  z-index: 1;
+  margin-top: 10px;
+}
+
+/* Dream Card Content Specifics */
+.dream-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  z-index: 1;
+}
+
+.dream-header h2 {
+  font-size: 42px;
+  font-weight: 700;
+  margin-top: 14px;
+}
+
+.dream-title {
+  font-size: 24px;
+  color: #a0a0a0;
+  margin-top: 2px;
+}
+
+.dream-text {
+  font-size: 24px;
+  line-height: 1.5;
+  color: #b3b3b3;
+  z-index: 1;
+  margin-top: 16px;
+  
+}
+
+.card-dream .dream-text {
+  /*fade/truncate extra lines: */
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Card spanning 2 columns AND 2 rows */
+.card-showcase {
+  grid-column: span 2;
+  grid-row: span 2;
+  position: relative;
+  overflow: hidden;
+  padding: 0;
+}
+
+/* The horizontal track */
+.carousel-track {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  /* Hide scrollbars */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+}
+
+.carousel-track::-webkit-scrollbar {
+  display: none; /* Chrome/Safari */
+}
+
+/* Individual Slides */
+.carousel-slide {
+  flex: 0 0 100%;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  scroll-snap-align: start;
+}
+
+.carousel-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Text Overlays for Showcase Items */
+.slide-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 24px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.85), transparent);
+  color: #ffffff;
+  z-index: 2;
+}
+
+.slide-overlay span {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.75;
+}
+
+.slide-overlay h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-top: 4px;
+}
+
+/* Arrows */
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 3;
+  
+  /* Dimensions for a perfect circle */
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  
+  /* Flexbox to dead-center the SVG icon */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  
+  /* Styling & Colors */
+  color: #ffffff;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  
+  /* Smooth hover transitions */
+  transition: background 0.2s, transform 0.2s;
+}
+
+.carousel-btn:hover {
+  background: rgba(0, 0, 0, 0.8);
+  transform: translateY(-50%) scale(1.05);
+}
+
+.prev-btn { left: 16px; }
+.next-btn { right: 16px; }
+
+/* Dots Pagination */
+.card-showcase .carousel-dots {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 3;
+  display: flex;
+  gap: 6px;
+}
+
+.card-showcase .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.4);
+  transition: all 0.3s ease;
+}
+
+.card-showcase .dot.active {
+  background: #ffffff;
+  width: 20px;
+  border-radius: 10px;
+}
+
+/* Dots Container inside card-dream */
+.card-dream .carousel-dots {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 3;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+/* Make dots interactive */
+.card-dream .dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(150, 150, 150, 0.3);
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.card-dream .dot:hover {
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.card-dream .dot.active {
+  background: #181818;
+  width: 22px;
+  border-radius: 10px;
+}
+
+
+/* 
+
+ANIMATIONS BUTTONS INTRO
+
+*/
+/* 1. MOUSE DOWN (Press) State: Momentary Squash */
+.pill-btn.is-pressing {
+  animation: disneyPress 0.15s forwards ease-out;
+}
+
+@keyframes disneyPress {
+  0% {
+    transform: scale(1, 1);
+  }
+  100% {
+    /* Exaggerated Squash: Wide and short */
+    transform: scale(1.15, 0.8); 
+  }
+}
+
+/* 2. MOUSE UP (Release) State: Springy Stretch and Settle */
+.pill-btn.is-releasing {
+  /* No 'forwards' here, it must return to normal scale */
+  animation: disneyRelease 0.5s ease-out; 
+}
+
+@keyframes disneyRelease {
+  0% {
+    /* Starts from the squashed state */
+    transform: scale(1.15, 0.8);
+  }
+  30% {
+    /* The big exaggerated STRETCH overshoot: Narrow and tall */
+    transform: scale(0.85, 1.25);
+  }
+  55% {
+    /* Small counter-squash */
+    transform: scale(1.05, 0.95);
+  }
+  75% {
+    /* Tiny counter-stretch */
+    transform: scale(0.98, 1.02);
+  }
+  100% {
+    /* Settle */
+    transform: scale(1, 1);
+  }
+}
+
+/* --- STAGGERED ENTRANCE ANIMATIONS --- */
+
+/* Base animation setup */
+.load-1,
+.load-2,
+.load-3 {
+  opacity: 0;
+  animation: heroFadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Staggered Timings */
+.load-1 {
+  /* "Hallie" appears instantly (or after a tiny 100ms breath) */
+  animation-delay: 0.35s; 
+}
+
+.load-2 {
+  /* Subtitle follows shortly after */
+  animation-delay: 0.60s; 
+}
+
+.load-3 {
+  /* Buttons and rest of content finish the cascade */
+  animation-delay: 0.8s; 
+}
+
+/* Animation Keyframes: Fade in + slight upward rise */
+@keyframes heroFadeUp {
+  0% {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* --- UTILITY: LIQUID GLASS SKIN --- */
+.has-liquid-glass {
+  background-color: color-mix(in srgb, var(--c-glass, #ffffff) 26%, transparent);
+  box-shadow: inset 0 0 0 1px
+      color-mix(
+        in srgb,
+        var(--c-light) calc(var(--glass-reflex-light) * 10%),
+        transparent
+      ),
+    inset 1.8px 3px 0px -2px color-mix(in srgb, var(--c-light)
+          calc(var(--glass-reflex-light) * 90%), transparent),
+    inset -2px -2px 0px -2px color-mix(in srgb, var(--c-light)
+          calc(var(--glass-reflex-light) * 80%), transparent),
+    inset -3px -8px 1px -6px color-mix(in srgb, var(--c-light)
+          calc(var(--glass-reflex-light) * 60%), transparent),
+    inset -0.3px -1px 4px 0px
+      color-mix(
+        in srgb,
+        var(--c-dark) calc(var(--glass-reflex-dark) * 12%),
+        transparent
+      ),
+    inset -1.5px 2.5px 0px -2px
+      color-mix(
+        in srgb,
+        var(--c-dark) calc(var(--glass-reflex-dark) * 20%),
+        transparent
+      ),
+    inset 0px 3px 4px -2px color-mix(in srgb, var(--c-dark)
+          calc(var(--glass-reflex-dark) * 20%), transparent),
+    inset 2px -6.5px 1px -4px
+      color-mix(
+        in srgb,
+        var(--c-dark) calc(var(--glass-reflex-dark) * 10%),
+        transparent
+      ),
+    0px 1px 5px 0px
+      color-mix(
+        in srgb,
+        var(--c-dark) calc(var(--glass-reflex-dark) * 10%),
+        transparent
+      ),
+    0px 6px 16px 0px
+      color-mix(
+        in srgb,
+        var(--c-dark) calc(var(--glass-reflex-dark) * 8%),
+        transparent
+      );
+
+  transition: background-color 300ms ease, box-shadow 300ms ease, border-color 300ms ease;
+}
+
+/* --- MOBILE VIEW RESPONSIVENESS (Screens <= 768px) --- */
+@media (max-width: 768px) {
+
+/* If you do want subtle fluid scaling that never gets tiny: */
+  .hero-title {
+    font-size: clamp(36px, 8vw, 56px);
+  }
+
+  .hero-subtitle {
+    font-size: clamp(15px, 4vw, 18px);
+  }
+  /* 1. Hero Container & Typography */
+  .hero-container {
+    min-height: auto;
+    padding: 60px 16px 32px;
+    text-align: center;
+  }
+
+  .hero-title {
+    font-size: 28px; /* Slightly downscaled from 32px to fit mobile screens comfortably */
+  }
+
+  .hero-subtitle {
+    font-size: 14px;
+    flex-wrap: wrap; /* Allows subtitle words to wrap gracefully if needed */
+    justify-content: center;
+  }
+
+  .odometer-window {
+    height: 28px; /* Matches scaled typography height */
+  }
+
+  .role-item {
+    height: 28px;
+    line-height: 28px;
+  }
+
+  /* 2. Hero Pill Group */
+  .pill-group {
+    display: flex;
+    flex-wrap: wrap; /* Wraps buttons cleanly on smaller screens */
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    padding: 0 12px;
+  }
+
+  .pill-btn {
+    padding: 8px 16px;
+    font-size: 13px; /* Slightly smaller touch targets */
+  }
+
+  /* 3. Bento Section & Grid Layout */
+  .bento-section {
+    padding: 0 16px 40px;
+  }
+
+  .bento-grid {
+    grid-template-columns: 1fr; /* Collapses 3-column desktop grid into a single column */
+    gap: 16px;
+  }
+
+  .bento-card-wide {
+    grid-column: span 1; /* Reset 2-column wide span to single column on mobile */
+  }
+
+  /* 4. Spotify Bio Card Layout Adaptations */
+  .card-bio {
+    padding: 16px;
+  }
+
+  .bio-header {
+    flex-direction: column; /* Stacks header elements vertically if screen is extra narrow */
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  /* 1. Force the parent outer wrapper to span full card width */
+  .bio-header-follow {
+    width: 100% !important;
+    display: flex !important;
+  }
+
+  /* 1. Force the container to take full width */
+  #listenerCount,
+  .listener-count {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    width: 100% !important;
+  }
+
+  /* 2. Hard-lock the follow button to the far right */
+  .follow-btn {
+    margin-left: auto !important;
+  }
+}
+
+/* --- TABLET BREAKPOINT (769px to 1024px) --- */
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+
+  .hero-container {
+    min-height: 70vh;
+    padding: 80px 32px 40px;
+  }
+
+  .bento-section {
+    padding: 0 32px 60px;
+  }
+
+  /* 2-Column Clean Grid */
+  .bento-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  /* FORCE ALL CARDS to span 1 column so there are no row gaps */
+  .bento-card-wide,
+  .card-bio,
+  .bento-card {
+    grid-column: span 1 !important;
+    grid-row: auto !important;
+  }
+
+  .bento-card:hover {
+    transform: translateY(-2px);
+  }
+}
