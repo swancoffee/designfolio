@@ -38,15 +38,22 @@ body {
     inset: 0;
 }
 
+body, main {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* Prevent horizontal scroll, allow vertical */
+}
+
 .hero-container {
   /* Gives the hero enough space to breathe while leaving room for the peek */
   width: 100%;
-  min-height: 80vh; 
+  min-height: 85svh; 
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 60px 20px 40px; 
+  padding: 2rem 1rem;
   box-sizing: border-box;
 }
 
@@ -840,6 +847,8 @@ ANIMATIONS BUTTONS INTRO
 /* --- MOBILE VIEW RESPONSIVENESS (Screens <= 768px) --- */
 @media (max-width: 768px) {
 
+
+
 /* If you do want subtle fluid scaling that never gets tiny: */
   .hero-title {
     font-size: clamp(36px, 8vw, 56px);
@@ -848,30 +857,23 @@ ANIMATIONS BUTTONS INTRO
   .hero-subtitle {
     font-size: clamp(15px, 4vw, 18px);
   }
-  /* 1. Hero Container & Typography */
-  .hero-container {
-    min-height: auto;
-    padding: 60px 16px 32px;
-    text-align: center;
-  }
 
   .hero-title {
-    font-size: 28px; /* Slightly downscaled from 32px to fit mobile screens comfortably */
+    font-size: 52px; /* Slightly downscaled from 32px to fit mobile screens comfortably */
   }
 
-  .hero-subtitle {
-    font-size: 14px;
-    flex-wrap: wrap; /* Allows subtitle words to wrap gracefully if needed */
+.hero-subtitle {
+    display: flex;
+    flex-wrap: wrap;
     justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 0.25em 0.35em; /* Row gap and Column gap */
   }
 
   .odometer-window {
-    height: 28px; /* Matches scaled typography height */
-  }
-
-  .role-item {
-    height: 28px;
-    line-height: 28px;
+    display: inline-block;
+    vertical-align: middle;
   }
 
   /* 2. Hero Pill Group */
